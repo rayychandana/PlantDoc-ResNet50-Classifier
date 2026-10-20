@@ -39,11 +39,10 @@ def download_model():
         MODEL_PATH.unlink()
 
     downloaded_path = gdown.download(
-        MODEL_URL,
-        str(MODEL_PATH),
-        quiet=False,
-        fuzzy=True
-    )
+    MODEL_URL,
+    str(MODEL_PATH),
+    quiet=False
+)
 
     if (
         not downloaded_path
