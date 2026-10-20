@@ -15,12 +15,26 @@ st.set_page_config(
     layout="wide"
 )
 
+import gdown
+
 MODEL_PATH = Path(__file__).parent / "PlantDoc_ResNet50_Final.keras"
 LABELS_PATH = Path(__file__).parent / "class_indices.json"
+
+MODEL_URL = "https://drive.google.com/uc?id=1dtyHK7eaaooumZjSM0ymBvc0p1Pp5k3Z"
+
+def download_model():
+    if not MODEL_PATH.exists():
+        import gdown
+        gdown.download(MODEL_URL, str(MODEL_PATH), quiet=False)
 
 
 @st.cache_resource
 def load_model():
+    download_model()
+
+    if not MODEL_PATH.exists():
+        raise FileNotFoundError("Model download failed. Please check the Google Drive link.")
+
     return tf.keras.models.load_model(MODEL_PATH)
 
 
